@@ -54,8 +54,8 @@ export const fetchUserData = async (userId, navigate) => {
 
 export const fetchUserActivity = async (userId, navigate) => {
     return USE_MOCK_DATA
-        ? fetchMockData(getUserActivityById, userId, "les activités", navigate)
-        : await fetchRealData("/activity", userId, "les activités", navigate);
+        ? fetchMockData(getUserActivityById, userId, 'les activités', navigate)
+        : await fetchRealData('/activity', userId, 'les activités', navigate);
 };
 
 export const fetchUserAverageSession = async (userId, navigate) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserData } from '../../services/dataService';
+import ActivityChart from '../../components/ActivityChart/ActivityChart';
 import apple from '../../assets/img/apple.png';
 import cheeseburger from '../../assets/img/cheeseburger.png';
 import chicken from '../../assets/img//chicken.png';
@@ -36,7 +37,9 @@ const Profile = () => {
       </div>
       <div className={`${styles.datas} d-flex`}>
         <div className={styles.statistics}>
-          <div className={styles.activities}>Activities</div>
+          <div className={styles.activities}>
+            <ActivityChart />
+          </div>
           <div className={`${styles.charts} d-flex justify-between`}>
             <div className={styles.average}>Average</div>
             <div className={styles.performance}>Performance</div>

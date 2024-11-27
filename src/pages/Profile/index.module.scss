@@ -26,13 +26,9 @@
 
         .activities {
             width: 100%;
-            aspect-ratio: 16 / 9;
             background-color: var(--gray-light);
             border-radius: 5px;
-
-            @include media.xxl {
-                height: 320px;
-            }
+            padding: 1rem;
         }
 
         .charts {
