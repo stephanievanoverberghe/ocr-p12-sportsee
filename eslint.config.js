@@ -33,7 +33,9 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'quotes': ['error', 'single', { 'avoidEscape': true }],
       // "react/prop-types": "off",
     },
+    extends: [...prettier.configs],
   },
 ]

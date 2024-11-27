@@ -1,46 +1,44 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserData } from '../../services/dataService';
 import styles from './index.module.scss';
 
-const Profile = ({ userId }) => {
-    const [userName, setUserName] = useState('');
-    const [error, setError] = useState(null);
+const Profile = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const userData = await fetchUserData(userId);
-                if (userData) {
-                    setUserName(userData.userInfos.firstName);
-                }
-            } catch (err) {
-                setError('Impossible de récupérer les données utilisateur.', err);
-            }
-        };
+  useEffect(() => {
+    const fetchData = async () => {
+      const userId = parseInt(id, 10);
+      const userData = await fetchUserData(userId);
+      if (userData) {
+        setUserName(userData.userInfos.firstName);
+      } else {
+        navigate('/404', { replace: true });
+      }
+    };
 
-        fetchData();
-    }, [userId]);
+    fetchData();
+  }, [id, navigate]);
 
-    return (
-        <div className={styles.profile}>
-            {error ? (
-                <p className={styles.error}>{error}</p>
-            ) : (
-                <>
-                    <h1>
-                        Bonjour <span className={styles.firstname}>{userName}</span>
-                    </h1>
-                    <p className={styles.paragraphe}>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
-                </>
-            )}
-        </div>
-    );
-};
-
-// Validation des props
-Profile.propTypes = {
-    userId: PropTypes.number.isRequired,
+  return (
+    <div className={styles.profile}>
+      {error ? (
+        <p className={styles.error}>{error}</p>
+      ) : (
+        <>
+          <h1>
+            Bonjour <span className={styles.firstname}>{userName}</span>
+          </h1>
+          <p className={styles.paragraphe}>
+            Félicitation ! Vous avez explosé vos objectifs hier 👏
+          </p>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Profile;

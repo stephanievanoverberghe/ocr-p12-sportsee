@@ -1,0 +1,22 @@
+.error {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 9.6rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+    color: var(--red);
+}
+
+.paragraphe {
+    font-size: 1.8rem;
+    color: var(--black);
+    text-align: center;
+}
+
+.link {
+    color: var(--black);
+    text-decoration: underline;
+}

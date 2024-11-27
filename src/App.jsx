@@ -1,4 +1,4 @@
-import Profile from './pages/Profile';
+import { Outlet } from 'react-router-dom';
 import HeaderSide from './components/Header/components/HeaderSide';
 import Header from './components/Header/Header';
 import styles from './App.module.scss';
@@ -9,7 +9,7 @@ function App() {
             <Header />
             <main className={`${styles.main} d-flex`}>
                 <HeaderSide />
-                <Profile userId={18} />
+                <Outlet />
             </main>
         </div>
     );
