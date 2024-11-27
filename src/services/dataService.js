@@ -6,113 +6,66 @@ import {
 } from './mockData';
 import { USE_MOCK_DATA } from '../config';
 
-// Fonctions pour récupérer les données mockées
-export const fetchMockUserData = (userId) => {
+/** Gestion des données mockées avec redirection */
+const fetchMockData = (fetchFunction, userId, type, navigate) => {
     try {
-        return getUserById(userId);
+        const data = fetchFunction(userId);
+        if (!data) {
+            console.warn(`Données mockées : ${type} introuvables pour l'utilisateur avec ID ${userId}`);
+            if (navigate) navigate('/404', { replace: true });
+            return null;
+        }
+        return data;
     } catch (error) {
-        console.error(error.message);
+        console.warn(`Données mockées : Impossible de récupérer ${type} pour l'utilisateur avec ID ${userId}`);
+        if (navigate) navigate('/404', { replace: true });
         return null;
     }
 };
 
-export const fetchMockUserActivity = (userId) => {
+/** Gestion des données réelles via l'API avec redirection */
+const fetchRealData = async (endpoint, userId, type, navigate) => {
     try {
-        return getUserActivityById(userId);
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
-};
-
-export const fetchMockUserAverageSession = (userId) => {
-    try {
-        return getUserAverageSession(userId);
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
-};
-
-export const fetchMockUserPerformance = (userId) => {
-    try {
-        return getUserPerformance(userId);
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
-};
-
-// Fonctions pour récupérer les données réelles via l'API
-export const fetchRealUserData = async (userId) => {
-    try {
-        const response = await fetch(`http://localhost:3000/user/${userId}`);
+        const response = await fetch(`http://localhost:3000/user/${userId}${endpoint}`);
+        if (response.status === 404) {
+            console.warn(`Erreur API : ${type} pour l'utilisateur ${userId} introuvable`);
+            if (navigate) navigate('/404', { replace: true });
+            return null;
+        }
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.warn(`Erreur API : Statut ${response.status} pour ${type} de l'utilisateur ${userId}`);
+            return null;
         }
         const data = await response.json();
         return data.data;
     } catch (error) {
-        console.error(error.message);
+        console.error(`Erreur réseau ou API pour ${type} de l'utilisateur ${userId}`, error.message);
+        if (navigate) navigate('/404', { replace: true });
         return null;
     }
 };
 
-export const fetchRealUserActivity = async (userId) => {
-    try {
-        const response = await fetch(`http://localhost:3000/user/${userId}/activity`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data.data;
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
+/** Choix entre données mockées et réelles */
+export const fetchUserData = async (userId, navigate) => {
+    return USE_MOCK_DATA
+        ? fetchMockData(getUserById, userId, "les données utilisateur", navigate)
+        : await fetchRealData("", userId, "les données utilisateur", navigate);
 };
 
-export const fetchRealUserAverageSession = async (userId) => {
-    try {
-        const response = await fetch(`http://localhost:3000/user/${userId}/average-sessions`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data.data;
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
+export const fetchUserActivity = async (userId, navigate) => {
+    return USE_MOCK_DATA
+        ? fetchMockData(getUserActivityById, userId, "les activités", navigate)
+        : await fetchRealData("/activity", userId, "les activités", navigate);
 };
 
-export const fetchRealUserPerformance = async (userId) => {
-    try {
-        const response = await fetch(`http://localhost:3000/user/${userId}/performance`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data.data;
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
+export const fetchUserAverageSession = async (userId, navigate) => {
+    return USE_MOCK_DATA
+        ? fetchMockData(getUserAverageSession, userId, "les sessions moyennes", navigate)
+        : await fetchRealData("/average-sessions", userId, "les sessions moyennes", navigate);
 };
 
-// Fonctions principales pour choisir entre mock et API
-export const fetchUserData = (userId) => {
-    return USE_MOCK_DATA ? fetchMockUserData(userId) : fetchRealUserData(userId);
-};
-
-export const fetchUserActivity = (userId) => {
-    return USE_MOCK_DATA ? fetchMockUserActivity(userId) : fetchRealUserActivity(userId);
-};
-
-export const fetchUserAverageSession = (userId) => {
-    return USE_MOCK_DATA ? fetchMockUserAverageSession(userId) : fetchRealUserAverageSession(userId);
-};
-
-export const fetchUserPerformance = (userId) => {
-    return USE_MOCK_DATA ? fetchMockUserPerformance(userId) : fetchRealUserPerformance(userId);
+export const fetchUserPerformance = async (userId, navigate) => {
+    return USE_MOCK_DATA
+        ? fetchMockData(getUserPerformance, userId, "les performances", navigate)
+        : await fetchRealData("/performance", userId, "les performances", navigate);
 };

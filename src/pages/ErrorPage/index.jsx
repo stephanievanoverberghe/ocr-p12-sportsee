@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styles from './index.module.scss';
 
 function Error() {
@@ -12,9 +12,6 @@ function Error() {
       <p className={styles.paragraphe}>
         Oups! La page que vous demandez n'existe pas.
       </p>
-      <Link to={`/user/${id}`} className={styles.link}>
-        Retourner à la page profil
-      </Link>
     </div>
   );
 }
