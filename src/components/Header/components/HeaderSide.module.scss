@@ -1,0 +1,26 @@
+.headerSide {
+    width: 117px;
+    background-color: var(--black);
+    color: var(--white);
+
+    .sideItems {
+        gap: 20px;
+        flex-grow: 1;
+    }
+
+    .sideItem {
+        cursor: pointer;
+        padding: 14px;
+        border-radius: 6px;
+        background-color: var(--white);
+    }
+
+    .copyright {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 24px;
+        margin-bottom: 59px;
+    }
+}

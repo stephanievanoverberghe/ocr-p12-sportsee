@@ -1,0 +1,22 @@
+.header {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 18px 28px;
+    box-shadow: var(--box-shadow);
+
+    img {
+        width: 178px;
+    }
+
+    .headerItems {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 24px;
+        flex-grow: 1;
+    }
+
+    .headerItem {
+        cursor: pointer;
+        padding: 5px;
+    }
+}
