@@ -262,8 +262,13 @@ export const getUserById = (id) => {
     if (!user) {
         throw new Error(`User with ID ${id} not found`);
     }
-    return user;
+
+    return {
+        ...user,
+        score: user.todayScore || user.score,
+    };
 };
+
 
 export const getUserActivityById = (id) => {
     const user = USER_ACTIVITY.find((activity) => activity.userId === id);

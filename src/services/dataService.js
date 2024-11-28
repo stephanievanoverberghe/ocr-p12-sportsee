@@ -49,7 +49,7 @@ const fetchRealData = async (endpoint, userId, type, navigate) => {
 export const fetchUserData = async (userId, navigate) => {
     return USE_MOCK_DATA
         ? fetchMockData(getUserById, userId, "les données utilisateur", navigate)
-        : await fetchRealData("", userId, "les données utilisateur", navigate);
+        : await fetchRealData('', userId, "les données utilisateur", navigate);
 };
 
 export const fetchUserActivity = async (userId, navigate) => {
@@ -61,11 +61,23 @@ export const fetchUserActivity = async (userId, navigate) => {
 export const fetchUserAverageSession = async (userId, navigate) => {
     return USE_MOCK_DATA
         ? fetchMockData(getUserAverageSession, userId, "les sessions moyennes", navigate)
-        : await fetchRealData("/average-sessions", userId, "les sessions moyennes", navigate);
+        : await fetchRealData('/average-sessions', userId, "les sessions moyennes", navigate);
 };
 
 export const fetchUserPerformance = async (userId, navigate) => {
     return USE_MOCK_DATA
         ? fetchMockData(getUserPerformance, userId, "les performances", navigate)
-        : await fetchRealData("/performance", userId, "les performances", navigate);
+        : await fetchRealData('/performance', userId, "les performances", navigate);
 };
+
+export const fetchUserKeyData = async (userId, navigate) => {
+    const userData = USE_MOCK_DATA
+        ? fetchMockData(getUserById, userId, "les chiffres clés", navigate)
+        : await fetchRealData('', userId, "les chiffres clés", navigate);
+
+    if (userData) {
+        return userData.keyData;
+    }
+    return null;
+};
+
