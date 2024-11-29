@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserData } from '../../services/dataService';
 import ActivityChart from '../../components/ActivityChart/ActivityChart';
+import AverageSession from '../../components/AverageSession/AverageSession';
 import apple from '../../assets/img/apple.png';
 import cheeseburger from '../../assets/img/cheeseburger.png';
 import chicken from '../../assets/img//chicken.png';
@@ -35,20 +36,20 @@ const Profile = () => {
           Félicitation ! Vous avez explosé vos objectifs hier 👏
         </p>
       </div>
-      <div className={`${styles.datas} d-flex`}>
+      <div className={styles.datas}>
         <div className={styles.statistics}>
           <div className={styles.activities}>
             <ActivityChart />
           </div>
           <div className={`${styles.charts} d-flex justify-between`}>
-            <div className={styles.average}>Average</div>
+            <div className={styles.average}>
+              <AverageSession />
+            </div>
             <div className={styles.performance}>Performance</div>
             <div className={styles.goals}>Objectifs</div>
           </div>
         </div>
-        <div
-          className={`${styles.nutrients} d-flex flex-column justify-between`}
-        >
+        <div className={styles.nutrients}>
           <div className={`${styles.calories} d-flex align-center`}>
             <div className={styles.iconsCalories}>
               <img src={energy} alt="icone calories" />

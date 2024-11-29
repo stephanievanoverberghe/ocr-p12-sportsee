@@ -18,11 +18,18 @@
     .datas {
         margin-top: 4rem;
         gap: 2rem;
+
+        @include media.xl {
+            display: flex;
+        }
     }
 
     .statistics {
         flex: 2;
-        margin-right: 2rem;
+
+        @include media.xl {
+            margin-right: 2rem;
+        }
 
         .activities {
             width: 100%;
@@ -58,9 +65,19 @@
     }
 
     .nutrients {
-        flex: 1;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
+        margin-top: 2rem;
+
+        @include media.xl {
+            margin-top: 0;
+            flex: 1;
+            flex-wrap: wrap;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
         .calories,
         .proteins,
