@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserAverageSession } from '../../services/dataService';
 import {
-  LineChart as RechartsLineChart,
+  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -60,7 +60,7 @@ function AverageSession() {
   return (
     <div className={styles.chartContainer}>
       <ResponsiveContainer width="100%" height="100%">
-        <RechartsLineChart
+        <LineChart
           data={averageSessions}
           margin={{ top: 0, right: 10, left: 10, bottom: 10 }}
         >
@@ -108,7 +108,7 @@ function AverageSession() {
               strokeWidth: 10,
             }}
           />
-        </RechartsLineChart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
