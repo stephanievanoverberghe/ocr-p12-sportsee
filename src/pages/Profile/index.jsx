@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserData } from '../../services/dataService';
 import ActivityChart from '../../components/ActivityChart/ActivityChart';
 import AverageSession from '../../components/AverageSession/AverageSession';
+import Perform from '../../components/Perform/Perform';
+import Score from '../../components/Score/Score';
 import apple from '../../assets/img/apple.png';
 import cheeseburger from '../../assets/img/cheeseburger.png';
 import chicken from '../../assets/img//chicken.png';
@@ -45,8 +47,12 @@ const Profile = () => {
             <div className={styles.average}>
               <AverageSession />
             </div>
-            <div className={styles.performance}>Performance</div>
-            <div className={styles.goals}>Objectifs</div>
+            <div className={styles.performance}>
+              <Perform />
+            </div>
+            <div className={styles.goals}>
+              <Score />
+            </div>
           </div>
         </div>
         <div className={styles.nutrients}>
