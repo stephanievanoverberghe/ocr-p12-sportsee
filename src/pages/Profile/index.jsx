@@ -1,3 +1,13 @@
+/**
+ * Page Profil de l'utilisateur.
+ *
+ * @component
+ * @returns {JSX.Element | null} Le tableau de bord de l'utilisateur, ou `null` si les données ne sont pas encore disponibles.
+ *
+ * @requires fetchUserData - Fonction asynchrone pour récupérer les données utilisateur.
+ * @requires ActivityChart, AverageSession, Perform, Score, Nutrient - Composants graphiques.
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserData } from '../../services/dataService';
@@ -18,6 +28,9 @@ const Profile = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
+  /**
+   * Récupère les données utilisateur depuis l'API ou les données mockées.
+   */
   useEffect(() => {
     const fetchData = async () => {
       const userId = parseInt(id, 10);
@@ -52,9 +65,11 @@ const Profile = () => {
       </div>
       <div className={styles.datas}>
         <div className={styles.statistics}>
+          {/* Graphique d'activité */}
           <div className={styles.activities}>
             <ActivityChart />
           </div>
+          {/* Autres graphiques */}
           <div className={`${styles.charts} d-flex justify-between`}>
             <div className={styles.average}>
               <AverageSession />
@@ -67,6 +82,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
+        {/* Informations nutritionnelles */}
         <div className={styles.nutrients}>
           <Nutrient
             icon={energy}

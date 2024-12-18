@@ -1,3 +1,9 @@
+/**
+ * Données principales des utilisateurs.
+ * Contient des informations générales sur l'utilisateur et ses statistiques principales.
+ * 
+ * @constant {Array<Object>} USER_MAIN_DATA
+ */
 export const USER_MAIN_DATA = [
     {
         id: 12,
@@ -31,6 +37,12 @@ export const USER_MAIN_DATA = [
     },
 ];
 
+/**
+ * Données d'activités quotidiennes des utilisateurs.
+ * Comprend les informations sur le poids et les calories brûlées chaque jour.
+ * 
+ * @constant {Array<Object>} USER_ACTIVITY
+ */
 export const USER_ACTIVITY = [
     {
         userId: 12,
@@ -112,6 +124,12 @@ export const USER_ACTIVITY = [
             }
         ]
     }];
+
+/**
+* Durée moyenne des sessions par jour pour les utilisateurs.
+* 
+* @constant {Array<Object>} USER_AVERAGE_SESSIONS
+*/
 export const USER_AVERAGE_SESSIONS = [
     {
         userId: 12,
@@ -180,6 +198,13 @@ export const USER_AVERAGE_SESSIONS = [
         ]
     }
 ];
+
+/**
+ * Données de performance des utilisateurs.
+ * Contient les types d'activités et leurs scores associés.
+ * 
+ * @constant {Array<Object>} USER_PERFORMANCE
+ */
 export const USER_PERFORMANCE = [
     {
         userId: 12,
@@ -257,6 +282,14 @@ export const USER_PERFORMANCE = [
     }
 ];
 
+/**
+ * Récupère les données principales d'un utilisateur à partir de son ID.
+ * 
+ * @function
+ * @param {number} id - ID de l'utilisateur.
+ * @returns {Object} - Données principales de l'utilisateur.
+ * @throws {Error} - Si l'utilisateur n'est pas trouvé.
+ */
 export const getUserById = (id) => {
     const user = USER_MAIN_DATA.find((user) => user.id === id);
     if (!user) {
@@ -269,7 +302,14 @@ export const getUserById = (id) => {
     };
 };
 
-
+/**
+ * Récupère les données d'activités quotidiennes d'un utilisateur à partir de son ID.
+ * 
+ * @function
+ * @param {number} id - ID de l'utilisateur.
+ * @returns {Object} - Données d'activités de l'utilisateur.
+ * @throws {Error} - Si l'utilisateur n'est pas trouvé.
+ */
 export const getUserActivityById = (id) => {
     const user = USER_ACTIVITY.find((activity) => activity.userId === id);
     if (!user) {
@@ -278,6 +318,14 @@ export const getUserActivityById = (id) => {
     return user;
 }
 
+/**
+ * Récupère la durée moyenne des sessions d'un utilisateur à partir de son ID.
+ * 
+ * @function
+ * @param {number} id - ID de l'utilisateur.
+ * @returns {Object} - Données de durée moyenne des sessions de l'utilisateur.
+ * @throws {Error} - Si l'utilisateur n'est pas trouvé.
+ */
 export const getUserAverageSession = (id) => {
     const user = USER_AVERAGE_SESSIONS.find((session) => session.userId === id);
     if (!user) {
@@ -286,6 +334,14 @@ export const getUserAverageSession = (id) => {
     return user;
 }
 
+/**
+ * Récupère les performances d'un utilisateur à partir de son ID.
+ * 
+ * @function
+ * @param {number} id - ID de l'utilisateur.
+ * @returns {Object} - Données de performance de l'utilisateur.
+ * @throws {Error} - Si l'utilisateur n'est pas trouvé.
+ */
 export const getUserPerformance = (id) => {
     const user = USER_PERFORMANCE.find((performance) => performance.userId === id);
     if (!user) {

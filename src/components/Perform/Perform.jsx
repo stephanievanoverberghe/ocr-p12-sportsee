@@ -1,3 +1,10 @@
+/**
+ * Composant React qui affiche un graphique radar représentant les performances utilisateur.
+ *
+ * @component
+ * @returns {JSX.Element} Un graphique radar affichant les différentes catégories de performances.
+ */
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserPerformance } from '../../services/dataService';
@@ -10,6 +17,9 @@ import {
 } from 'recharts';
 import styles from './Perform.module.scss';
 
+/**
+ * Traduction des types de performances en français.
+ */
 const kindTranslation = {
   cardio: 'Cardio',
   energy: 'Énergie',
@@ -19,6 +29,11 @@ const kindTranslation = {
   intensity: 'Intensité',
 };
 
+/**
+ * Retourne les styles responsifs en fonction de la largeur de l'écran.
+ *
+ * @returns {Object} Un objet contenant les propriétés `fontSize` et `outerRadius`.
+ */
 const getResponsiveStyles = () => {
   const width = window.innerWidth;
   if (width >= 1300) {
@@ -40,6 +55,9 @@ function Perform() {
     getResponsiveStyles()
   );
 
+  /**
+   * Gestion de l'événement `resize` pour rendre le graphique responsive.
+   */
   useEffect(() => {
     const handleResize = () => {
       setResponsiveStyles(getResponsiveStyles());
@@ -49,6 +67,9 @@ function Perform() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  /**
+   * Récupération et formatage des données de performance utilisateur.
+   */
   useEffect(() => {
     const fetchData = async () => {
       const userId = parseInt(id, 10);

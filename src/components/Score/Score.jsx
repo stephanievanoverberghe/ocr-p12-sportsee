@@ -1,3 +1,10 @@
+/**
+ * Composant React pour afficher le score utilisateur sous forme de graphique radial.
+ *
+ * @component
+ * @returns {JSX.Element} Un graphique RadialBarChart affichant le pourcentage de l'objectif atteint par l'utilisateur.
+ */
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserData } from '../../services/dataService';
@@ -9,6 +16,10 @@ function Score() {
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
 
+  /**
+   * Récupération du score utilisateur lors du montage du composant.
+   * Utilise un hook `useEffect` pour appeler l'API et récupérer les données.
+   */
   useEffect(() => {
     const fetchData = async () => {
       const userId = parseInt(id, 10);
@@ -22,6 +33,9 @@ function Score() {
     fetchData();
   }, [id, navigate]);
 
+  /**
+   * Données formatées pour le graphique radial.
+   */
   const chartData = [
     {
       value: score * 100,

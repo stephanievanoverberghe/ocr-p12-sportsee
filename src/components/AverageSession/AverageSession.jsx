@@ -1,3 +1,10 @@
+/**
+ * Composant React qui affiche un graphique en courbes pour la durée moyenne des sessions.
+ *
+ * @component
+ * @returns {JSX.Element} Le composant `AverageSession` qui affiche un graphique en courbes.
+ */
+
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserAverageSession } from '../../services/dataService';
@@ -33,6 +40,14 @@ function AverageSession() {
     fetchData();
   }, [id, navigate]);
 
+  /**
+   * Tooltip personnalisé pour afficher la durée de session.
+   *
+   * @param {Object} props - Propriétés du tooltip.
+   * @param {boolean} props.active - Indique si le tooltip est actif.
+   * @param {Array} props.payload - Données associées au point du graphique.
+   * @returns {JSX.Element|null} Contenu du tooltip ou `null` si inactif.
+   */
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -44,6 +59,14 @@ function AverageSession() {
     return null;
   };
 
+  /**
+   * Curseur personnalisé pour surligner la session active.
+   *
+   * @param {Object} props - Propriétés du curseur.
+   * @param {Array} props.points - Points associés à la session.
+   * @param {number} props.width - Largeur du curseur.
+   * @returns {JSX.Element} Un élément `rect` représentant le curseur.
+   */
   const CustomCursor = ({ points, width }) => {
     const { x } = points[0];
     return (
@@ -64,12 +87,14 @@ function AverageSession() {
           data={averageSessions}
           margin={{ top: 0, right: 10, left: 10, bottom: 10 }}
         >
+          {/* Définition des dégradés pour la ligne */}
           <defs>
             <linearGradient id="lineGradient">
               <stop offset="0%" stopColor="#FFFFFF" stopOpacity="30%" />
               <stop offset="100%" stopColor="#FFFFFF" stopOpacity="100%" />
             </linearGradient>
           </defs>
+          {/* Titre du graphique */}
           <text
             x={20}
             y={35}
@@ -83,6 +108,7 @@ function AverageSession() {
           >
             Durée moyenne des sessions
           </text>
+          {/* Axe X */}
           <XAxis
             dataKey="day"
             tickLine={false}
@@ -91,11 +117,14 @@ function AverageSession() {
             stroke="white"
             style={{ fontSize: '12px', opacity: 0.8 }}
           />
+          {/* Axe Y (caché) */}
           <YAxis hide={true} domain={['dataMin - 20', 'dataMax + 50']} />
+          {/* Tooltip avec curseur personnalisé */}
           <Tooltip
             content={<CustomTooltip />}
             cursor={<CustomCursor width={40} />}
           />
+          {/* Ligne représentant la durée moyenne des sessions */}
           <Line
             type="natural"
             dataKey="sessionLength"
