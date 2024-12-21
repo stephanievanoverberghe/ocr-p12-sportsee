@@ -1,5 +1,24 @@
 @use '../../assets/styles/media-queries' as media;
 
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    h1 {
+        font-size: 60px;
+        color: var(--red);
+    }
+
+    p {
+        font-size: 20px;
+        color: var(--gray-dark);
+        margin: 50px 0;
+    }
+}
+
 .profile {
     flex: 1;
     margin: 68px 90px;

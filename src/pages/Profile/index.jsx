@@ -27,6 +27,7 @@ const Profile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(false);
 
   /**
    * Récupère les données utilisateur depuis l'API ou les données mockées.
@@ -34,14 +35,32 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       const userId = parseInt(id, 10);
-      const data = await fetchUserData(userId, navigate);
-      if (data) {
-        setUserData(data);
+      try {
+        const data = await fetchUserData(userId, navigate);
+        if (data) {
+          setUserData(data);
+        } else {
+          throw new Error('Aucune donnée trouvée');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données :', error);
+        setError(true);
       }
     };
 
     fetchData();
   }, [id, navigate]);
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <h1>⚠️ Oups !</h1>
+        <p>
+          Impossible de récupérer les données. Veuillez réessayer plus tard.
+        </p>
+      </div>
+    );
+  }
 
   if (!userData) {
     return null;
